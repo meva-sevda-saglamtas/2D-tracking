@@ -11,7 +11,7 @@ if not cap.isOpened():
     print("Error: Input video not opened.")
     exit()
 
-# Videonun özelliklerini alma
+# Videonun özelliklerini alma 
 fps = cap.get(cv2.CAP_PROP_FPS)
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -20,7 +20,7 @@ frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 print(f"FPS: {fps}, Frame Width: {frame_width}, Frame Height: {frame_height}, Frame Count: {frame_count}")
 
 # Trackpy parametreleri
-diameters = [5, 15, 21]  # Farklı çaplarda parçacıkları tespit etme
+diameters = [5, 11, 21]  # Farklı çaplarda parçacıkları tespit etme ==> burası işe yaramıyor olabilir 
 
 # Kareleri işleme
 while cap.isOpened():
@@ -30,13 +30,13 @@ while cap.isOpened():
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Grayscale'e çevirme
 
-    # Tespit edilen tüm parçacıkları birleştirmek için boş bir DataFrame oluştur
+    # Tespit edilen tüm parçacıkları birleştirmek için boş bir DataFrame oluşturma 
     all_features = pd.DataFrame()
 
     for diameter in diameters:
         f = tp.locate(gray, diameter, invert=True, minmass=100)  # Parçacık tespiti
         if f is not None and not f.empty:
-            all_features = pd.concat([all_features, f])
+            all_features = pd.concat([all_features, f]) # data framelerin birleştirilmesi
 
     if not all_features.empty:
         # Tespit edilen parçacıkları çerçeveye çizme
