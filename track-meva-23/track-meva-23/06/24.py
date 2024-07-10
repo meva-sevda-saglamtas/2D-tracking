@@ -4,7 +4,13 @@ import numpy as np
 import pandas as pd 
 
 # Video dosyasını açma
-input_video_path = '/Users/mevasaglamtas/Downloads/WhatsApp Video 2024-06-23 at 15.07.09.mp4'
+input_video_path = '/Users/mevasaglamtas/Downloads/'
+
+output_video_path = '/Users/mevasaglamtas/Downloads/outputvideo/'
+output_excel_path ='/Users/mevasaglamtas/Downloads/outputexcel/'
+# Bos excel dosyasi
+# Console prompt for selection of files
+
 cap = cv2.VideoCapture(input_video_path)
 
 if not cap.isOpened():
@@ -29,6 +35,7 @@ while cap.isOpened():
         break
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Grayscale'e çevirme
+    # Check filters
 
     # Tespit edilen tüm parçacıkları birleştirmek için boş bir DataFrame oluşturma 
     all_features = pd.DataFrame()
@@ -42,7 +49,7 @@ while cap.isOpened():
         # Tespit edilen parçacıkları çerçeveye çizme
         for index, row in all_features.iterrows():
             cv2.circle(frame, (int(row['x']), int(row['y'])), int(diameter // 2), (0, 0, 255), 1)
-
+# pandas.read_excel(io, sheet_name=0, *, header=0, names=None, index_col=None, usecols=None, dtype=None, engine=None, converters=None, true_values=None, false_values=None, skiprows=None, nrows=None, na_values=None, keep_default_na=True, na_filter=True, verbose=False, parse_dates=False, date_parser=_NoDefault.no_default, date_format=None, thousands=None, decimal='.', comment=None, skipfooter=0, storage_options=None, dtype_backend=_NoDefault.no_default, engine_kwargs=None)
 
     cv2.imshow('Tracked Video', frame)  # İşlenmiş kareyi gösterme
 
